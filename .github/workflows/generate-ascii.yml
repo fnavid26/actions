@@ -11,9 +11,6 @@ jobs:
 
             - name: Check repo files
               run: ls -lha
-            
-            - name: Install cowsay
-              run: sudo apt-get install cowsay -y
     
     ascii_job_deploy:
         runs-on: ubuntu-latest
