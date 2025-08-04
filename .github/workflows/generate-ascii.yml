@@ -21,5 +21,6 @@ jobs:
             - name: Run cowsay as a rocket
               run: |
                sudo apt-get install cowsay -y 
-               cowsay -f ./rocket.cow "Deploying to production!"
+               cowsay -f tux "Launching soon!"
+
             
