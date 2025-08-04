@@ -3,24 +3,38 @@ name: Generate Ascii Artwork
 on: push
 
 jobs:
-    ascii_job_build:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout repo
-              uses: actions/checkout@v4
+  ascii_job_build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
-            - name: Check repo files
-              run: ls -lha
-            
+      - name: Check repo files
+        run: ls -lha
 
-    
-    ascii_job_deploy:
-        runs-on: ubuntu-latest
-        needs: ascii_job_build
-        steps:
-            - name: Run cowsay as a rocket
-              run: |
-               sudo apt-get install cowsay -y 
-               cowsay -f tux "Launching soon!"
+  ascii_job_test:
+    runs-on: ubuntu-latest
+    needs: ascii_job_build
+    steps:
+      - name: Install cowsay and generate rocket text
+        run: |
+          sudo apt-get install cowsay -y
+          cowsay -f tux "Launching soon!" >> tux.txt
 
-            
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: tux-artifact
+          path: tux.txt
+
+  ascii_job_deploy:
+    runs-on: ubuntu-latest
+    needs: ascii_job_test
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: tux-artifact
+
+      - name: Show downloaded artifact
+        run: cat tux.txt
