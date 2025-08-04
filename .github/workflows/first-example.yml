@@ -14,6 +14,3 @@ jobs:
                 echo "My first Github Actions job"
                 ls -lha
                 cat README.md
-            
-            - name: Generate ASCII art
-              run: cowsay
