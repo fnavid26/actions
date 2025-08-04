@@ -3,7 +3,7 @@ name: Generate Ascii Artwork
 on: push
 
 jobs:
-    ascii_job:
+    ascii_job_build:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout repo
@@ -12,8 +12,13 @@ jobs:
             - name: Check repo files
               run: ls -lha
             
-            - name: Execute cowsay from script
-              run: | 
-                chmod +x ascii-script.sh
-                ./ascii-script.sh
+            - name: Install cowsay
+              run: sudo apt-get install cowsay -y
+    
+    ascii_job_deploy:
+        runs-on: ubuntu-latest
+        needs: ascii_job_build
+        steps:
+            - name: Run cowsay
+              run: cowsay "Hello world!"
             
