@@ -20,5 +20,7 @@ jobs:
         needs: ascii_job_build
         steps:
             - name: Run cowsay
-              run: cowsay "Hello world!"
+              run: |
+               sudo apt-get install cowsay -y 
+               cowsay "Hello world!"
             
